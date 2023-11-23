@@ -1,0 +1,6 @@
+# packer
+/plugin/packer_compiled.lua
+# lazy
+/lazy-lock.json
+# machine private config
+/lua/machine/*.lua

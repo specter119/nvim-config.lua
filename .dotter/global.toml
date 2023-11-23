@@ -1,0 +1,7 @@
+[helpers]
+
+[default]
+depends = ['neovim']
+
+[neovim.files]
+nvim = '~/Appdata/Local/nvim'
