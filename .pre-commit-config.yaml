@@ -20,6 +20,6 @@ repos:
       - id: pretty-format-toml
         args: [--autofix, --no-sort]
   - repo: https://github.com/JohnnyMorganz/StyLua
-    rev: v0.16.0
+    rev: v0.19.1
     hooks:
     - id: stylua
