@@ -1,6 +1,6 @@
 return {
   -- ui: color theme
-  'folke/tokyonight.nvim',
+  { 'folke/tokyonight.nvim', lazy = false, priority = 1000, opts = {} },
   -- buffer & tab
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
   { 'akinsho/bufferline.nvim', version = '3.x', dependencies = 'nvim-tree/nvim-web-devicons' },
