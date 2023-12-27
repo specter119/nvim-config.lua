@@ -64,19 +64,11 @@ return {
   },
   -- formatter
   {
-    'jose-elias-alvarez/null-ls.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-    opts = function()
-      local nls = require 'null-ls'
-      return {
-        sources = {
-          -- nls.builtins.formatting.prettierd,
-          nls.builtins.formatting.stylua,
-          nls.builtins.formatting.black,
-          nls.builtins.formatting.ruff,
-        },
-      }
-    end,
+    'nvimdev/guard.nvim',
+    -- Builtin configuration, optional
+    dependencies = {
+      'nvimdev/guard-collection',
+    },
   },
   -- keybinding
   'folke/which-key.nvim',
