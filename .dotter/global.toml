@@ -4,4 +4,4 @@
 depends = ['neovim']
 
 [neovim.files]
-nvim = '~/Appdata/Local/nvim'
+nvim = '~/.config/nvim'
