@@ -1,4 +1,5 @@
 # dotter
+/.dotter/local.toml
 /.dotter/cache.toml
 
 # Compiled Lua sources

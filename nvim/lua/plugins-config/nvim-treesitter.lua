@@ -1,6 +1,8 @@
-require('nvim-treesitter.install').compilers = { 'x86_64-w64-mingw32-gcc' }
+if vim.loop.os_uname().sysname == 'Windows' then
+  require('nvim-treesitter.install').compilers = { 'x86_64-w64-mingw32-gcc' }
+end
 require('nvim-treesitter.configs').setup {
-  ensure_installed = { 'vim', 'lua', 'python', 'toml', 'yaml', 'latex' },
+  ensure_installed = { 'vim', 'lua', 'python', 'toml', 'yaml', 'fortran', 'latex' },
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
