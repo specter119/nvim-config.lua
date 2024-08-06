@@ -3,7 +3,7 @@ return {
   { 'folke/tokyonight.nvim', lazy = false, priority = 1000, opts = {} },
   -- buffer & tab
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
-  { 'akinsho/bufferline.nvim', version = '3.x', dependencies = 'nvim-tree/nvim-web-devicons' },
+  { 'akinsho/bufferline.nvim', dependencies = 'nvim-tree/nvim-web-devicons' },
   -- frame
   { 'nvim-tree/nvim-tree.lua', dependencies = 'nvim-tree/nvim-web-devicons' },
   -- content

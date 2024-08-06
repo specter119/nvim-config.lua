@@ -1,3 +1,7 @@
+-- lightweight system wide settings
+vim.g.maplocalleader = ' '
+vim.o.clipboard = 'unnamedplus'
+
 -- lazy installation
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -12,9 +16,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- lightweight system wide settings
-vim.g.mapleader = ' '
-vim.o.clipboard = 'unnamedplus'
 --
 local machineconf = vim.fn.stdpath 'config' .. '/lua/machine/' .. vim.fn.hostname() .. '.lua'
 if vim.loop.fs_stat(machineconf) then
