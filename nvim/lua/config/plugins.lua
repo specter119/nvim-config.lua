@@ -65,6 +65,8 @@ return {
   -- formatter
   {
     'nvimdev/guard.nvim',
+    -- lazy load by ft
+    ft = { 'lua', 'c', 'markdown', 'python' },
     -- Builtin configuration, optional
     dependencies = {
       'nvimdev/guard-collection',
