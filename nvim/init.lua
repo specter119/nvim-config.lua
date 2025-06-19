@@ -1,4 +1,5 @@
 vim.g.maplocalleader = ' '
+vim.g.maplocalleader = '\\'
 vim.o.clipboard = 'unnamedplus'
 vim.loader.enable()
 vim.g.loaded_ruby_provider = 0
