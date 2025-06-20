@@ -63,11 +63,10 @@ return {
         },
       },
     },
-
     adapters = {
-      ollama = function()
+      ollama_qwen3_14b = function()
         return require('codecompanion.adapters').extend('ollama', {
-          name = 'ollama',
+          name = 'ollama_qwen3_14b',
           schema = {
             model = {
               default = 'qwen3:14b',
@@ -81,6 +80,17 @@ return {
           },
         })
       end,
+    },
+    strategies = {
+      chat = {
+        adapter = 'ollama_qwen3_14b',
+      },
+      inline = {
+        adapter = 'ollama_qwen3_14b',
+      },
+      cmd = {
+        adapter = 'ollama_qwen3_14b',
+      },
     },
   },
 }
