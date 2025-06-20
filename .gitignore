@@ -2,6 +2,10 @@
 /.dotter/local.toml
 /.dotter/cache.toml
 
+# nvim
+/lazy-lock.json
+/nvim/lua/machine/*.lua
+
 # Compiled Lua sources
 luac.out
 
