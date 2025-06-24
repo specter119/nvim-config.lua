@@ -8,16 +8,19 @@ return {
       'ravitemer/mcphub.nvim', -- Manage MCP servers
       cmd = 'MCPHub',
       build = 'bundled_build.lua',
-      opts = {
-        use_bundled_binary = true,
-      },
+      use_bundled_binary = true,
+      config = function()
+        require('mcphub').setup {
+          use_bundled_binary = true, -- Use local `mcp-hub` binary
+        }
+      end,
     },
-    {
-      'Davidyz/VectorCode', -- Index and search code in your repositories
-      version = '*',
-      build = 'uv tool install vectorcode',
-      dependencies = { 'nvim-lua/plenary.nvim' },
-    },
+    -- {
+    --   'Davidyz/VectorCode', -- Index and search code in your repositories
+    --   version = '*',
+    --   build = 'uv tool install vectorcode',
+    --   dependencies = { 'nvim-lua/plenary.nvim' },
+    -- },
     {
       'HakonHarnes/img-clip.nvim', -- Share images with the chat buffer
       event = 'VeryLazy',
@@ -57,11 +60,11 @@ return {
           show_result_in_chat = true,
         },
       },
-      vectorcode = {
-        opts = {
-          add_tool = true,
-        },
-      },
+      -- vectorcode = {
+      --   opts = {
+      --     add_tool = true,
+      --   },
+      -- },
     },
     adapters = {
       ollama_qwen3_14b = function()

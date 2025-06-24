@@ -1,5 +1,9 @@
 return {
   'stevearc/conform.nvim',
+  dependencies = {
+    -- 'mason-org/mason.nvim',
+    'zapling/mason-conform.nvim',
+  },
   opts = {
     formatters_by_ft = {
       lua = { 'stylua' },
