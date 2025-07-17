@@ -2,17 +2,19 @@ return {
   'olimorris/codecompanion.nvim',
   opts = {},
   dependencies = {
-    'j-hui/fidget.nvim', -- Display status
+    'j-hui/fidget.nvim',                    -- Display status
     'ravitemer/codecompanion-history.nvim', -- Save and load conversation history
     {
-      'ravitemer/mcphub.nvim', -- Manage MCP servers
+      'ravitemer/mcphub.nvim',              -- Manage MCP servers
       cmd = 'MCPHub',
-      build = 'bundled_build.lua',
-      use_bundled_binary = true,
+      dependencies = {
+        "nvim-lua/plenary.nvim",
+      },
+      build = "bundled_build.lua", -- Bundles `mcp-hub` binary along with the neovim plugin
       config = function()
-        require('mcphub').setup {
+        require("mcphub").setup({
           use_bundled_binary = true, -- Use local `mcp-hub` binary
-        }
+        })
       end,
     },
     -- {
