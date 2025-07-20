@@ -1,10 +1,12 @@
 return {
   'nvim-lualine/lualine.nvim',
+  event = 'VeryLazy',
   dependencies = {
     'nvim-tree/nvim-web-devicons',
+    'rose-pine/neovim', -- ensure rose-pine loads first
   },
   config = function()
-    require('lualine').setup({
+    require('lualine').setup {
       options = {
         icons_enabled = true,
         theme = 'rose-pine',
@@ -59,6 +61,6 @@ return {
       winbar = {},
       inactive_winbar = {},
       extensions = { 'nvim-tree', 'trouble', 'mason' },
-    })
+    }
   end,
 }

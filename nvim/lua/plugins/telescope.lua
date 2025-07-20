@@ -6,7 +6,7 @@ return {
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
   },
 
-  -- 使用命名空间规则重构快捷键
+  -- use命名空间规则重构快捷键
   keys = {
     -- <leader>f* = Find/Files 命名空间
     { '<leader>ff', '<cmd>Telescope find_files<CR>', desc = 'Find Files' },

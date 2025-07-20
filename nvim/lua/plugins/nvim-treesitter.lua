@@ -1,50 +1,61 @@
 return {
   'nvim-treesitter/nvim-treesitter',
-  branch = 'master',
-  event = { 'BufReadPre', 'BufNewFile' },
-  priority = 1000, -- High priority loading
-  build = ':TSUpdate',
+  event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
+  build = function()
+    vim.cmd 'TSUpdate'
+  end,
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
   },
   config = function()
-    require('nvim-treesitter.configs').setup {
-      -- 根据你的开发需求自动安装语言解析器
-      ensure_installed = {
-        -- 核心和配置语言
+    -- 检查是否为 Arch Linux
+    local is_arch = vim.fn.filereadable '/etc/arch-release' == 1
+
+    -- basic语言解析器列表
+    local base_parsers = {
+      -- data science主力语言
+      'python',
+
+      -- future learning语言
+      'rust',
+      'typescript',
+      'javascript',
+      'go',
+
+      -- configuration文件和数据格式
+      'json',
+      'yaml',
+      'toml',
+      'markdown_inline',
+      'typst',
+
+      -- Web 开发 (可选)
+      'html',
+      'css',
+
+      -- 其他常用
+      'bash',
+      'regex',
+      'comment',
+    }
+
+    -- 如果不是 Arch Linux，添加系统不提供的解析器
+    if not is_arch then
+      vim.list_extend(base_parsers, {
+        'c',
         'lua',
         'vim',
         'vimdoc',
         'query',
-
-        -- 数据科学主力语言
-        'python',
-
-        -- 未来学习的语言
-        'rust',
-        'typescript',
-        'javascript',
-        'go',
-
-        -- 配置文件和数据格式
-        'json',
-        'yaml',
-        'toml',
         'markdown',
-        'markdown_inline',
-        'typst',
+      })
+    end
 
-        -- Web 开发 (可选)
-        'html',
-        'css',
+    require('nvim-treesitter.configs').setup {
+      -- 根据系统类型安装语言解析器
+      ensure_installed = base_parsers,
 
-        -- 其他常用
-        'bash',
-        'regex',
-        'comment',
-      },
-
-      -- 自动安装缺失的解析器
+      -- automatic安装缺失的解析器
       auto_install = true,
 
       -- 语法高亮
@@ -109,6 +120,6 @@ return {
     -- 设置折叠方式为 treesitter
     vim.opt.foldmethod = 'expr'
     vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-    vim.opt.foldenable = false -- 默认不折叠
+    vim.opt.foldenable = false -- default不折叠
   end,
 }

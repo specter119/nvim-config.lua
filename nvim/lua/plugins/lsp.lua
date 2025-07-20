@@ -1,12 +1,13 @@
 return {
   'neovim/nvim-lspconfig',
+  event = { 'BufReadPre', 'BufNewFile' },
   dependencies = {
     'mason-org/mason.nvim',
     'mason-org/mason-lspconfig.nvim',
     'hrsh7th/cmp-nvim-lsp',
   },
 
-  -- 使用 lazy.nvim keys 字段定义快捷键
+  -- use lazy.nvim keys 字段定义快捷键
   keys = {
     -- 代码操作 (使用 <leader>c* 命名空间)
     { '<leader>ca', vim.lsp.buf.code_action, desc = 'Code Action' },
@@ -33,7 +34,7 @@ return {
       desc = 'List Workspace Folders',
     },
 
-    -- 诊断导航 (使用 <leader>d* 命名空间)
+    -- diagnostic导航 (使用 <leader>d* 命名空间)
     { '<leader>de', vim.diagnostic.open_float, desc = 'Diagnostics Float' },
     { '<leader>dl', vim.diagnostic.setloclist, desc = 'Diagnostics List' },
     { '[d', vim.diagnostic.goto_prev, desc = 'Previous Diagnostic' },
@@ -52,7 +53,7 @@ return {
     local mason_lspconfig = require 'mason-lspconfig'
     local cmp_nvim_lsp = require 'cmp_nvim_lsp'
 
-    -- 简化的 on_attach 函数，快捷键由 lazy.nvim 管理
+    -- simplified on_attach 函数，快捷键由 lazy.nvim 管理
     local on_attach = function(client, bufnr)
       -- 仅保留必要的缓冲区设置
       -- 快捷键已通过 lazy.nvim keys 字段定义
@@ -61,7 +62,7 @@ return {
     -- LSP 增强能力
     local capabilities = cmp_nvim_lsp.default_capabilities()
 
-    -- 配置诊断显示
+    -- configuration诊断显示
     vim.diagnostic.config {
       virtual_text = {
         prefix = '●',
@@ -77,7 +78,7 @@ return {
       },
     }
 
-    -- 诊断符号
+    -- diagnostic符号
     local signs = { Error = '󰅚 ', Warn = '󰀪 ', Hint = '󰌶 ', Info = ' ' }
     for type, icon in pairs(signs) do
       local hl = 'DiagnosticSign' .. type
@@ -95,36 +96,36 @@ return {
     -- Mason-lspconfig 自动配置 - 数据科学和多语言开发
     mason_lspconfig.setup {
       ensure_installed = {
-        -- 核心语言
+        -- core语言
         'lua_ls', -- Lua (Neovim 配置)
         'pyright', -- Python (主要语言)
 
-        -- 未来学习的语言
+        -- future learning语言
         'rust_analyzer', -- Rust
         'ts_ls', -- TypeScript
         'gopls', -- Go
 
-        -- 数据科学相关
+        -- data science相关
         'marksman', -- Markdown (文档和笔记)
         'jsonls', -- JSON (配置文件)
         'yamlls', -- YAML (配置文件)
         'taplo', -- TOML (配置文件)
         'tinymist', -- Typst (文档生成) - 推荐的 Typst LSP
 
-        -- 可选的 Web 开发支持
+        -- optional Web 开发支持
         'html', -- HTML
         'cssls', -- CSS
       },
       automatic_installation = true,
     }
 
-    -- 默认服务器配置
+    -- default服务器配置
     local default_config = {
       on_attach = on_attach,
       capabilities = capabilities,
     }
 
-    -- 特殊服务器配置
+    -- special服务器配置
     local server_configs = {
       -- Lua 配置 (Neovim 开发)
       lua_ls = {
@@ -217,7 +218,7 @@ return {
       },
     }
 
-    -- 手动配置需要特殊设置的服务器
+    -- manual配置需要特殊设置的服务器
     for server_name, server_config in pairs(server_configs) do
       local config = vim.tbl_deep_extend('force', default_config, server_config)
       lspconfig[server_name].setup(config)

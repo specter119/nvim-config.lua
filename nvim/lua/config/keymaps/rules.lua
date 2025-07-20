@@ -16,7 +16,7 @@ M.namespaces = {
   b = 'Buffer', -- 缓冲区操作
   h = 'Help', -- 帮助文档
 
-  -- 特殊功能 (大写字母，预留扩展)
+  -- special功能 (大写字母，预留扩展)
   T = 'Terminal', -- 终端操作
   S = 'Session', -- 会话管理
 }

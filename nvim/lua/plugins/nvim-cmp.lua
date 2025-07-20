@@ -1,5 +1,6 @@
 return {
   'hrsh7th/nvim-cmp',
+  event = 'InsertEnter',
   dependencies = {
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-buffer',
@@ -15,8 +16,8 @@ return {
     },
   },
   config = function()
-    local cmp = require('cmp')
-    local luasnip = require('luasnip')
+    local cmp = require 'cmp'
+    local luasnip = require 'luasnip'
 
     -- 加载代码片段
     require('luasnip.loaders.from_vscode').lazy_load()
@@ -25,26 +26,26 @@ return {
     local has_words_before = function()
       unpack = unpack or table.unpack
       local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-      return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
+      return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match '%s' == nil
     end
 
-    cmp.setup({
+    cmp.setup {
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
         end,
       },
-      
-      mapping = cmp.mapping.preset.insert({
+
+      mapping = cmp.mapping.preset.insert {
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({
+        ['<CR>'] = cmp.mapping.confirm {
           behavior = cmp.ConfirmBehavior.Replace,
           select = true,
-        }),
-        
+        },
+
         -- Tab 和 S-Tab 智能补全
         ['<Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
@@ -57,7 +58,7 @@ return {
             fallback()
           end
         end, { 'i', 's' }),
-        
+
         ['<S-Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item()
@@ -67,8 +68,8 @@ return {
             fallback()
           end
         end, { 'i', 's' }),
-      }),
-      
+      },
+
       sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
@@ -76,7 +77,7 @@ return {
         { name = 'buffer' },
         { name = 'path' },
       }),
-      
+
       formatting = {
         fields = { 'kind', 'abbr', 'menu' },
         format = function(entry, vim_item)
@@ -108,7 +109,7 @@ return {
             Operator = '󰆕',
             TypeParameter = '󰅲',
           }
-          
+
           vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind)
           vim_item.menu = ({
             nvim_lsp = '[LSP]',
@@ -116,28 +117,28 @@ return {
             buffer = '[Buffer]',
             path = '[Path]',
           })[entry.source.name]
-          
+
           return vim_item
         end,
       },
-      
+
       window = {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
       },
-      
+
       experimental = {
         ghost_text = true,
       },
-    })
+    }
 
     -- 命令行补全
     cmp.setup.cmdline(':', {
       mapping = cmp.mapping.preset.cmdline(),
       sources = cmp.config.sources({
-        { name = 'path' }
+        { name = 'path' },
       }, {
-        { name = 'cmdline' }
+        { name = 'cmdline' },
       }),
     })
 
@@ -145,7 +146,7 @@ return {
     cmp.setup.cmdline({ '/', '?' }, {
       mapping = cmp.mapping.preset.cmdline(),
       sources = {
-        { name = 'buffer' }
+        { name = 'buffer' },
       },
     })
   end,

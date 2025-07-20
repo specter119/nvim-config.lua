@@ -1,7 +1,7 @@
 return {
   'lewis6991/gitsigns.nvim',
 
-  -- 使用 <leader>g* = Git 命名空间 和 <leader>t* = Toggle 命名空间
+  -- use <leader>g* = Git 命名空间 和 <leader>t* = Toggle 命名空间
   keys = {
     -- Git hunk 操作
     {

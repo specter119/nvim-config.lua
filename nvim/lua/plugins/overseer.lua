@@ -18,7 +18,7 @@ return {
     },
 
     keys = {
-      -- 使用 <leader>T* Terminal 命名空间 (遵循keymap规则)
+      -- use <leader>T* Terminal 命名空间 (遵循keymap规则)
       { '<leader>To', '<cmd>OverseerToggle<CR>', desc = 'Overseer Toggle' },
       { '<leader>Tr', '<cmd>OverseerRun<CR>', desc = 'Run Task' },
       { '<leader>Ta', '<cmd>OverseerTaskAction<CR>', desc = 'Task Action' },
@@ -298,7 +298,7 @@ return {
           -- 运行Python文件
           require('overseer').run_template('python', { args = { file } })
         else
-          -- 默认运行项目测试
+          -- default运行项目测试
           require('overseer').run_template('pytest', { args = { '.', '-v' } })
         end
       end, {

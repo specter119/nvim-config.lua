@@ -3,7 +3,7 @@ return {
   dependencies = {
     'nvim-tree/nvim-web-devicons',
   },
-  -- 使用预留的单个快捷键，因为文件树是常用操作
+  -- use预留的单个快捷键，因为文件树是常用操作
   keys = {
     { '<leader>e', '<cmd>NvimTreeToggle<CR>', desc = 'Toggle File Tree' },
     { '<leader>E', '<cmd>NvimTreeFindFile<CR>', desc = 'Find File in Tree' },
@@ -101,7 +101,7 @@ return {
       },
     }
 
-    -- 自动关闭
+    -- automatic关闭
     vim.api.nvim_create_autocmd('BufEnter', {
       nested = true,
       callback = function()

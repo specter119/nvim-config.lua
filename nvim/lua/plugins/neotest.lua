@@ -11,7 +11,7 @@ return {
       'nvim-neotest/neotest-plenary',
     },
 
-    -- 使用 <leader>T* Terminal 命名空间（测试相关）
+    -- use <leader>T* Terminal 命名空间（测试相关）
     keys = {
       { '<leader>Tt', '<cmd>lua require("neotest").run.run()<CR>', desc = 'Test Nearest' },
       { '<leader>Tf', '<cmd>lua require("neotest").run.run(vim.fn.expand("%"))<CR>', desc = 'Test File' },
@@ -31,7 +31,7 @@ return {
       require('neotest').setup {
         adapters = {
           require 'neotest-python' {
-            -- 使用 pytest 作为测试运行器
+            -- use pytest 作为测试运行器
             runner = 'pytest',
 
             -- Python 路径配置
@@ -158,7 +158,7 @@ return {
         projects = {},
       }
 
-      -- 自动命令：保存文件时运行测试
+      -- automatic命令：保存文件时运行测试
       vim.api.nvim_create_autocmd('BufWritePost', {
         pattern = { '*.py' },
         callback = function()

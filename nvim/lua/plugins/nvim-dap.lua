@@ -6,7 +6,7 @@ return {
       'jay-babu/mason-nvim-dap.nvim',
     },
 
-    -- 使用 <leader>d* Debug/Diagnostics 命名空间
+    -- use <leader>d* Debug/Diagnostics 命名空间
     keys = {
       -- 调试控制
       { '<leader>db', '<cmd>DapToggleBreakpoint<CR>', desc = 'Toggle Breakpoint' },
@@ -136,7 +136,7 @@ return {
         },
       }
 
-      -- 自动打开/关闭 DAP UI
+      -- automatic打开/关闭 DAP UI
       local dap = require 'dap'
       dap.listeners.after.event_initialized['dapui_config'] = function()
         dapui.open()

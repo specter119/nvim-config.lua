@@ -1,4 +1,4 @@
--- 基本设置
+-- basic settings
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.mouse = 'a'
@@ -19,57 +19,57 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 vim.opt.hlsearch = true
 
--- 缩进设置
+-- indent settings
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 
--- 搜索设置
+-- search settings
 vim.opt.incsearch = true
 vim.opt.hlsearch = true
 
--- 外观设置
+-- appearance settings
 vim.opt.termguicolors = true
 vim.opt.background = 'dark'
 vim.opt.wrap = false
 
--- 备份和交换文件
+-- backup and swap files
 vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.swapfile = false
 
--- 折叠设置 (由 treesitter 插件管理)
+-- folding settings (managed by treesitter plugin)
 -- vim.opt.foldmethod = 'expr'
 -- vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 -- vim.opt.foldenable = false
 
--- 命令行设置
+-- command line settings
 vim.opt.cmdheight = 1
 vim.opt.showcmd = true
 vim.opt.laststatus = 3
 
--- 补全设置
+-- completion settings
 vim.opt.completeopt = 'menu,menuone,noselect'
 vim.opt.pumheight = 10
 
--- 文件编码
+-- file encoding
 vim.opt.fileencoding = 'utf-8'
 vim.opt.encoding = 'utf-8'
 
--- 性能设置
-vim.opt.lazyredraw = false -- 禁用 lazyredraw 以获得更好的用户体验
+-- performance settings
+vim.opt.lazyredraw = false -- disable lazyredraw for better user experience
 vim.opt.synmaxcol = 300
 vim.opt.updatetime = 250
 vim.opt.redrawtime = 1500
 
--- 窗口设置
+-- window settings
 vim.opt.winwidth = 30
 vim.opt.winminwidth = 10
 vim.opt.equalalways = false
 
--- 其他设置
+-- other settings
 vim.opt.hidden = true
 vim.opt.confirm = true
 vim.opt.wildmode = 'longest:full,full'

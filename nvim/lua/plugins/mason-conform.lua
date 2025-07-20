@@ -2,7 +2,7 @@ return {
   'stevearc/conform.nvim',
   event = { 'BufReadPre', 'BufNewFile' },
   dependencies = {
-    'mason-org/mason.nvim', -- 确保 mason 先加载
+    'mason-org/mason.nvim', -- ensure mason loads first
     {
       'zapling/mason-conform.nvim',
       config = function()
@@ -12,26 +12,26 @@ return {
   },
   opts = {
     formatters_by_ft = {
-      -- 数据科学主力语言
+      -- data science primary language
       python = { 'ruff_organize_imports', 'ruff_fix', 'ruff_format' },
 
-      -- 配置和开发语言
+      -- configuration and development languages
       lua = { 'stylua' },
 
-      -- 未来学习的语言
+      -- future learning languages
       rust = { 'rustfmt' },
       typescript = { 'prettierd', 'prettier' },
       javascript = { 'prettierd', 'prettier' },
       go = { 'gofmt', 'goimports' },
 
-      -- 数据科学相关格式
+      -- data science related formats
       json = { 'jq' },
       yaml = { 'yamlfmt' },
       toml = { 'taplo' },
       markdown = { 'markdownlint' },
       typst = { 'typstfmt' },
 
-      -- Web 开发 (可选)
+      -- web development (optional)
       html = { 'prettierd', 'prettier' },
       css = { 'prettierd', 'prettier' },
     },

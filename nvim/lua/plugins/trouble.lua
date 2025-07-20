@@ -3,9 +3,9 @@ return {
   opts = {},
   cmd = 'Trouble',
 
-  -- 使用 <leader>d* = Debug/Diagnostics 命名空间
+  -- use <leader>d* = Debug/Diagnostics 命名空间
   keys = {
-    -- 诊断面板
+    -- diagnostic面板
     { '<leader>dt', '<cmd>Trouble diagnostics toggle<CR>', desc = 'Diagnostics Toggle' },
     { '<leader>db', '<cmd>Trouble diagnostics toggle filter.buf=0<CR>', desc = 'Buffer Diagnostics' },
     { '<leader>ds', '<cmd>Trouble symbols toggle focus=false<CR>', desc = 'Symbols' },

@@ -21,17 +21,17 @@ require('lazy').setup {
     { import = 'plugins' },
   },
   defaults = {
-    lazy = true, -- 启用懒加载以提升启动速度
-    version = false, -- 使用 main/master 分支而非 release
+    lazy = true, -- enable lazy loading to improve startup speed
+    version = false, -- use main/master branch instead of release
   },
   install = { colorscheme = { 'rose-pine' } },
   checker = {
     enabled = true,
-    notify = false, -- 减少更新通知干扰
+    notify = false, -- reduce update notification interference
   },
   change_detection = {
     enabled = true,
-    notify = false, -- 减少配置变更通知
+    notify = false, -- reduce config change notifications
   },
   performance = {
     rtp = {

@@ -4,7 +4,7 @@ return {
     'nvim-lua/plenary.nvim',
   },
 
-  -- 使用 <leader>a (agentic features) 命名空间
+  -- use <leader>a (agentic features) 命名空间
   keys = {
     { '<leader>aa', '<cmd>ClaudeCode<CR>', desc = 'Claude Code' },
     { '<leader>ac', '<cmd>ClaudeCodeContinue<CR>', desc = 'Continue' },
