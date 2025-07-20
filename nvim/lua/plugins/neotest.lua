@@ -6,12 +6,12 @@ return {
       'nvim-lua/plenary.nvim',
       'antoinemadec/FixCursorHold.nvim',
       'nvim-treesitter/nvim-treesitter',
-      -- 测试适配器
+      -- Test adapters
       'nvim-neotest/neotest-python',
       'nvim-neotest/neotest-plenary',
     },
 
-    -- use <leader>T* Terminal 命名空间（测试相关）
+    -- use <leader>T* Terminal namespace (test related)
     keys = {
       { '<leader>Tt', '<cmd>lua require("neotest").run.run()<CR>', desc = 'Test Nearest' },
       { '<leader>Tf', '<cmd>lua require("neotest").run.run(vim.fn.expand("%"))<CR>', desc = 'Test File' },
@@ -31,10 +31,10 @@ return {
       require('neotest').setup {
         adapters = {
           require 'neotest-python' {
-            -- use pytest 作为测试运行器
+            -- use pytest as test runner
             runner = 'pytest',
 
-            -- Python 路径配置
+            -- Python path configuration
             python = function()
               local venv_path = os.getenv 'VIRTUAL_ENV'
               if venv_path then
@@ -43,10 +43,10 @@ return {
               return vim.fn.exepath 'python3' or vim.fn.exepath 'python' or 'python'
             end,
 
-            -- Pytest 参数
+            -- Pytest arguments
             args = { '-v', '--tb=short' },
 
-            -- 测试发现
+            -- Test discovery
             is_test_file = function(file_path)
               return string.match(file_path, 'test_.*%.py$')
                 or string.match(file_path, '.*_test%.py$')
@@ -158,14 +158,14 @@ return {
         projects = {},
       }
 
-      -- automatic命令：保存文件时运行测试
+      -- Automatic command: run tests when saving files
       vim.api.nvim_create_autocmd('BufWritePost', {
         pattern = { '*.py' },
         callback = function()
-          -- 只在测试文件或被测试文件发生变化时运行
+          -- Only run when test files or tested files change
           local file = vim.fn.expand '%'
           if string.match(file, 'test_.*%.py$') or string.match(file, '.*_test%.py$') then
-            -- 可以选择自动运行测试
+            -- Option to automatically run tests
             -- require('neotest').run.run()
           end
         end,

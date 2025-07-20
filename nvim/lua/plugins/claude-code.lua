@@ -4,13 +4,13 @@ return {
     'nvim-lua/plenary.nvim',
   },
 
-  -- use <leader>a (agentic features) 命名空间
+  -- use <leader>a (agentic features) namespace
   keys = {
     { '<leader>aa', '<cmd>ClaudeCode<CR>', desc = 'Claude Code' },
     { '<leader>ac', '<cmd>ClaudeCodeContinue<CR>', desc = 'Continue' },
     { '<leader>av', '<cmd>ClaudeCodeVerbose<CR>', desc = 'Verbose' },
     { '<leader>ar', '<cmd>ClaudeCodeResume<CR>', desc = 'Resume' },
-    -- 快速切换
+    -- Quick toggle
     { '<C-,>', '<cmd>ClaudeCode<CR>', desc = 'Claude Code Toggle' },
   },
 
@@ -18,7 +18,7 @@ return {
     require('claude-code').setup {
       window = {
         split_ratio = 0.3,
-        position = 'botright',
+        position = 'vertical',
         enter_insert = true,
         hide_numbers = true,
         hide_signcolumn = true,
@@ -51,12 +51,12 @@ return {
         resume = '--resume',
         verbose = '--verbose',
       },
-      -- 禁用内置快捷键，使用我们的命名空间
+      -- Disable built-in keymaps, use our namespace
       keymaps = {
         toggle = {
-          normal = false, -- 禁用默认快捷键
-          terminal = '<C-,>', -- 保留终端模式快捷键
-          variants = {}, -- 清空，使用我们的 keys 定义
+          normal = false, -- Disable default keymaps
+          terminal = '<C-,>', -- Keep terminal mode keymap
+          variants = {}, -- Clear, use our keys definition
         },
         window_navigation = true,
         scrolling = true,

@@ -1,9 +1,9 @@
 return {
   'lewis6991/gitsigns.nvim',
 
-  -- use <leader>g* = Git 命名空间 和 <leader>t* = Toggle 命名空间
+  -- Use <leader>g* = Git namespace and <leader>t* = Toggle namespace
   keys = {
-    -- Git hunk 操作
+    -- Git hunk operations
     {
       '<leader>gs',
       function()
@@ -68,7 +68,7 @@ return {
       desc = 'Diff This ~',
     },
 
-    -- Git hunk 操作 (visual mode)
+    -- Git hunk operations (visual mode)
     {
       '<leader>gs',
       function()
@@ -86,7 +86,7 @@ return {
       mode = 'v',
     },
 
-    -- Toggle 功能
+    -- Toggle features
     {
       '<leader>tb',
       function()
@@ -102,7 +102,7 @@ return {
       desc = 'Toggle Deleted',
     },
 
-    -- 导航
+    -- Navigation
     {
       ']c',
       function()
@@ -132,7 +132,7 @@ return {
       desc = 'Previous Hunk',
     },
 
-    -- 文本对象
+    -- Text objects
     { 'ih', ':<C-U>Gitsigns select_hunk<CR>', desc = 'Select Hunk', mode = { 'o', 'x' } },
   },
 
@@ -174,7 +174,7 @@ return {
         row = 0,
         col = 1,
       },
-      -- 移除 on_attach 中的快捷键设置，由 lazy.nvim 管理
+      -- Remove keymap settings from on_attach, managed by lazy.nvim
     }
   end,
 }

@@ -6,9 +6,9 @@ return {
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
   },
 
-  -- use命名空间规则重构快捷键
+  -- Keymap restructuring using namespace rules
   keys = {
-    -- <leader>f* = Find/Files 命名空间
+    -- <leader>f* = Find/Files namespace
     { '<leader>ff', '<cmd>Telescope find_files<CR>', desc = 'Find Files' },
     { '<leader>fg', '<cmd>Telescope live_grep<CR>', desc = 'Live Grep' },
     { '<leader>fb', '<cmd>Telescope buffers<CR>', desc = 'Buffers' },
@@ -16,32 +16,32 @@ return {
     { '<leader>fs', '<cmd>Telescope treesitter<CR>', desc = 'Symbols' },
     { '<leader>fc', '<cmd>Telescope commands<CR>', desc = 'Commands' },
 
-    -- <leader>h* = Help 命名空间
+    -- <leader>h* = Help namespace
     { '<leader>hh', '<cmd>Telescope help_tags<CR>', desc = 'Help Tags' },
     { '<leader>hm', '<cmd>Telescope man_pages<CR>', desc = 'Man Pages' },
     { '<leader>hk', '<cmd>Telescope keymaps<CR>', desc = 'Keymaps' },
     { '<leader>ho', '<cmd>Telescope vim_options<CR>', desc = 'Options' },
 
-    -- <leader>g* = Git 命名空间
+    -- <leader>g* = Git namespace
     { '<leader>gc', '<cmd>Telescope git_commits<CR>', desc = 'Git Commits' },
     { '<leader>gC', '<cmd>Telescope git_bcommits<CR>', desc = 'Buffer Commits' },
     { '<leader>gb', '<cmd>Telescope git_branches<CR>', desc = 'Git Branches' },
     { '<leader>gS', '<cmd>Telescope git_status<CR>', desc = 'Git Status' },
     { '<leader>gt', '<cmd>Telescope git_stash<CR>', desc = 'Git Stash' },
 
-    -- <leader>d* = Debug/Diagnostics 命名空间
+    -- <leader>d* = Debug/Diagnostics namespace
     { '<leader>dd', '<cmd>Telescope diagnostics<CR>', desc = 'Diagnostics' },
     { '<leader>dq', '<cmd>Telescope quickfix<CR>', desc = 'Quickfix' },
     { '<leader>dl', '<cmd>Telescope loclist<CR>', desc = 'Location List' },
 
-    -- 保留的经典快捷键
+    -- Preserved classic keymaps
     { '<C-p>', '<cmd>Telescope git_files<CR>', desc = 'Git Files' },
   },
 
   config = function()
     require('telescope').setup {
       defaults = {
-        -- 性能优化
+        -- Performance optimization
         file_ignore_patterns = {
           '%.git/',
           'node_modules/',
@@ -55,7 +55,7 @@ return {
           '%.png',
         },
 
-        -- 布局配置
+        -- Layout configuration
         layout_strategy = 'horizontal',
         layout_config = {
           horizontal = {
@@ -71,7 +71,7 @@ return {
           preview_cutoff = 120,
         },
 
-        -- 外观配置
+        -- Appearance configuration
         prompt_prefix = '🔍 ',
         selection_caret = '➤ ',
         entry_prefix = '  ',
@@ -79,13 +79,13 @@ return {
         selection_strategy = 'reset',
         sorting_strategy = 'ascending',
 
-        -- 搜索配置
+        -- Search configuration
         file_sorter = require('telescope.sorters').get_fuzzy_file,
         file_previewer = require('telescope.previewers').vim_buffer_cat.new,
         grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
         qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
 
-        -- 映射配置
+        -- Mapping configuration
         mappings = {
           i = {
             ['<C-n>'] = require('telescope.actions').move_selection_next,
@@ -154,7 +154,7 @@ return {
       },
     }
 
-    -- 加载 fzf 扩展
+    -- Load fzf extension
     require('telescope').load_extension 'fzf'
   end,
 }

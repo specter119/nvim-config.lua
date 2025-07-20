@@ -8,38 +8,41 @@ return {
     'nvim-treesitter/nvim-treesitter-textobjects',
   },
   config = function()
-    -- 检查是否为 Arch Linux
+    -- Check if Arch Linux
     local is_arch = vim.fn.filereadable '/etc/arch-release' == 1
 
-    -- basic语言解析器列表
+    -- Basic language parser list
     local base_parsers = {
-      -- data science主力语言
+      -- Data science primary language
       'python',
 
-      -- future learning语言
+      -- Future learning languages
       'rust',
       'typescript',
       'javascript',
       'go',
 
-      -- configuration文件和数据格式
+      -- Configuration files and data formats
       'json',
       'yaml',
       'toml',
       'markdown_inline',
       'typst',
 
-      -- Web 开发 (可选)
+      -- Web development (optional)
       'html',
       'css',
 
-      -- 其他常用
+      -- Scientific/engineering computing
+      'fortran', -- ABAQUS user subroutines
+
+      -- Other common
       'bash',
       'regex',
       'comment',
     }
 
-    -- 如果不是 Arch Linux，添加系统不提供的解析器
+    -- If not Arch Linux, add parsers not provided by system
     if not is_arch then
       vim.list_extend(base_parsers, {
         'c',
@@ -52,19 +55,19 @@ return {
     end
 
     require('nvim-treesitter.configs').setup {
-      -- 根据系统类型安装语言解析器
+      -- Install language parsers based on system type
       ensure_installed = base_parsers,
 
-      -- automatic安装缺失的解析器
+      -- Automatically install missing parsers
       auto_install = true,
 
-      -- 语法高亮
+      -- Syntax highlighting
       highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,
       },
 
-      -- 增量选择
+      -- Incremental selection
       incremental_selection = {
         enable = true,
         keymaps = {
@@ -75,12 +78,12 @@ return {
         },
       },
 
-      -- 缩进
+      -- Indentation
       indent = {
         enable = true,
       },
 
-      -- 文本对象
+      -- Text objects
       textobjects = {
         select = {
           enable = true,
@@ -117,9 +120,9 @@ return {
       },
     }
 
-    -- 设置折叠方式为 treesitter
+    -- Set folding method to treesitter
     vim.opt.foldmethod = 'expr'
     vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-    vim.opt.foldenable = false -- default不折叠
+    vim.opt.foldenable = false -- Default not folded
   end,
 }

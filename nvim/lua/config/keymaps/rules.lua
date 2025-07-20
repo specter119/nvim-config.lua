@@ -1,27 +1,27 @@
--- 快捷键命名空间规则
--- 这是快捷键管理的核心规则，避免冲突的关键
+-- Keymap namespace rules
+-- Core rules for keymap management to avoid conflicts
 
 local M = {}
 
--- 命名空间分配 (严格执行)
+-- Namespace allocation (strictly enforced)
 M.namespaces = {
-  -- 主要功能区域 (小写字母)
-  a = 'Agentic/AI', -- AI 功能 (Claude Code, Copilot 等)
-  f = 'Find/Files', -- 查找、文件操作
-  g = 'Git', -- Git 相关操作
-  c = 'Code/LSP', -- 代码、LSP 操作
-  d = 'Debug/Diagnostics', -- 调试、诊断
-  t = 'Toggle', -- 切换选项
-  w = 'Window', -- 窗口操作
-  b = 'Buffer', -- 缓冲区操作
-  h = 'Help', -- 帮助文档
+  -- Primary functional areas (lowercase letters)
+  a = 'Agentic/AI', -- AI features (Claude Code, Copilot, etc.)
+  f = 'Find/Files', -- Search and file operations
+  g = 'Git', -- Git-related operations
+  c = 'Code/LSP', -- Code and LSP operations
+  d = 'Debug/Diagnostics', -- Debugging and diagnostics
+  t = 'Toggle', -- Toggle options
+  w = 'Window', -- Window operations
+  b = 'Buffer', -- Buffer operations
+  h = 'Help', -- Help and documentation
 
-  -- special功能 (大写字母，预留扩展)
-  T = 'Terminal', -- 终端操作
-  S = 'Session', -- 会话管理
+  -- Special features (uppercase letters, reserved for expansion)
+  T = 'Terminal', -- Terminal operations
+  S = 'Session', -- Session management
 }
 
--- 预留的单个快捷键 (不使用命名空间)
+-- Reserved single keys (do not use namespace)
 M.reserved_keys = {
   ['<leader>e'] = 'File Explorer',
   ['<leader>u'] = 'Undo Tree',
@@ -29,20 +29,20 @@ M.reserved_keys = {
   ['<leader>Q'] = 'Quit All',
 }
 
--- 验证快捷键是否符合命名空间规则
+-- Validate if keymap follows namespace rules
 function M.validate_key(key)
-  -- 检查是否为预留快捷键
+  -- Check if it's a reserved key
   if M.reserved_keys[key] then
     return true, 'Reserved key'
   end
 
-  -- 检查命名空间格式
+  -- Check namespace format
   local prefix = key:match '^<leader>([a-zA-Z])'
   if not prefix then
     return true, 'Non-namespaced key'
   end
 
-  -- 检查是否为有效命名空间
+  -- Check if it's a valid namespace
   if not M.namespaces[prefix] then
     return false, 'Invalid namespace: ' .. prefix
   end
@@ -50,11 +50,11 @@ function M.validate_key(key)
   return true, 'Valid namespace: ' .. M.namespaces[prefix]
 end
 
--- 获取推荐的快捷键
+-- Get recommended keymaps
 function M.suggest_key(description)
   local suggestions = {}
 
-  -- 基于描述推荐命名空间
+  -- Recommend namespace based on description
   local desc_lower = description:lower()
 
   if desc_lower:match 'find' or desc_lower:match 'search' or desc_lower:match 'file' then
@@ -96,7 +96,7 @@ function M.suggest_key(description)
   return suggestions
 end
 
--- 显示命名空间规则
+-- Show namespace rules
 function M.show_rules()
   local lines = { '=== Keymap Namespace Rules ===' }
 
@@ -119,7 +119,7 @@ function M.show_rules()
   )
 end
 
--- 创建用户命令
+-- Create user command
 vim.api.nvim_create_user_command('ShowKeymapRules', M.show_rules, { desc = 'Show keymap namespace rules' })
 
 return M

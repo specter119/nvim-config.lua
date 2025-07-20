@@ -28,7 +28,7 @@ return {
       },
     }
 
-    -- 与 nvim-cmp 集成
+    -- Integration with nvim-cmp
     cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
   end,
 }

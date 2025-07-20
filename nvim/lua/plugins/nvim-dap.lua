@@ -6,9 +6,9 @@ return {
       'jay-babu/mason-nvim-dap.nvim',
     },
 
-    -- use <leader>d* Debug/Diagnostics 命名空间
+    -- use <leader>d* Debug/Diagnostics namespace
     keys = {
-      -- 调试控制
+      -- Debug controls
       { '<leader>db', '<cmd>DapToggleBreakpoint<CR>', desc = 'Toggle Breakpoint' },
       { '<leader>dB', '<cmd>DapSetBreakpoint<CR>', desc = 'Set Breakpoint' },
       { '<leader>dc', '<cmd>DapContinue<CR>', desc = 'Continue' },
@@ -32,7 +32,7 @@ return {
     config = function()
       local dap = require 'dap'
 
-      -- 设置断点图标
+      -- Set breakpoint icons
       vim.fn.sign_define(
         'DapBreakpoint',
         { text = '🔴', texthl = 'DapBreakpoint', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' }
@@ -136,7 +136,7 @@ return {
         },
       }
 
-      -- automatic打开/关闭 DAP UI
+      -- Automatically open/close DAP UI
       local dap = require 'dap'
       dap.listeners.after.event_initialized['dapui_config'] = function()
         dapui.open()
@@ -165,17 +165,17 @@ return {
     },
 
     config = function()
-      -- Mason 安装的 debugpy 路径
+      -- Mason installed debugpy path
       local mason_path = vim.fn.stdpath 'data' .. '/mason/packages/debugpy/venv/bin/python'
 
-      -- 如果 mason 路径不存在，使用系统 Python
+      -- If mason path doesn't exist, use system Python
       if vim.fn.executable(mason_path) == 1 then
         require('dap-python').setup(mason_path)
       else
         require('dap-python').setup 'python3'
       end
 
-      -- 添加 Python 调试配置
+      -- Add Python debug configuration
       table.insert(require('dap').configurations.python, {
         type = 'python',
         request = 'launch',
@@ -196,7 +196,7 @@ return {
         end,
       })
 
-      -- 添加 Django 调试配置
+      -- Add Django debug configuration
       table.insert(require('dap').configurations.python, {
         type = 'python',
         request = 'launch',
@@ -214,7 +214,7 @@ return {
         end,
       })
 
-      -- 添加 Flask 调试配置
+      -- Add Flask debug configuration
       table.insert(require('dap').configurations.python, {
         type = 'python',
         request = 'launch',
@@ -236,7 +236,7 @@ return {
         end,
       })
 
-      -- 添加 Pytest 调试配置
+      -- Add Pytest debug configuration
       table.insert(require('dap').configurations.python, {
         type = 'python',
         request = 'launch',

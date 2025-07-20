@@ -3,9 +3,9 @@ return {
   opts = {},
   cmd = 'Trouble',
 
-  -- use <leader>d* = Debug/Diagnostics 命名空间
+  -- use <leader>d* = Debug/Diagnostics namespace
   keys = {
-    -- diagnostic面板
+    -- diagnostic panel
     { '<leader>dt', '<cmd>Trouble diagnostics toggle<CR>', desc = 'Diagnostics Toggle' },
     { '<leader>db', '<cmd>Trouble diagnostics toggle filter.buf=0<CR>', desc = 'Buffer Diagnostics' },
     { '<leader>ds', '<cmd>Trouble symbols toggle focus=false<CR>', desc = 'Symbols' },

@@ -1,9 +1,9 @@
--- Keymaps 统一入口
--- 这里只管理 Neovim 内置功能的快捷键
--- 插件快捷键由各插件的 keys 字段管理
+-- Keymaps unified entry point
+-- Only manages Neovim built-in functionality keymaps
+-- Plugin keymaps are managed by each plugin's keys field
 
--- 加载规则
+-- Load rules
 require 'config.keymaps.rules'
 
--- 加载核心快捷键
+-- Load core keymaps
 require 'config.keymaps.core'

@@ -3,7 +3,7 @@ return {
   event = 'VeryLazy',
   config = function()
     local wk = require 'which-key'
-    local keymap_rules = require 'config.keymaps.rules' -- 更新路径
+    local keymap_rules = require 'config.keymaps.rules' -- Updated path
 
     wk.setup {
       preset = 'modern',
@@ -11,7 +11,7 @@ return {
       filter = function(mapping)
         return mapping.desc and mapping.desc ~= ''
       end,
-      -- 启用冲突检测
+      -- Enable conflict detection
       notify = true,
       plugins = {
         marks = true,
@@ -32,14 +32,14 @@ return {
       },
     }
 
-    -- 只定义命名空间组名，具体快捷键由插件自动注册
+    -- Only define namespace group names, specific keymaps are auto-registered by plugins
     wk.add {
-      -- 基于命名空间规则定义组
+      -- Based on namespace rules define groups
       { '<leader>a', group = 'Agentic/AI' },
       { '<leader>f', group = 'Find/Files' },
       { '<leader>g', group = 'Git' },
       { '<leader>c', group = 'Code/LSP' },
-      { '<leader>cw', group = 'Workspace' }, -- LSP 工作区子命名空间
+      { '<leader>cw', group = 'Workspace' }, -- LSP workspace sub-namespace
       { '<leader>d', group = 'Debug/Diagnostics' },
       { '<leader>t', group = 'Toggle' },
       { '<leader>w', group = 'Window' },
@@ -49,7 +49,7 @@ return {
       { '<leader>S', group = 'Session' },
     }
 
-    -- 验证快捷键函数
+    -- Validate keymaps function
     local function validate_keymap(key, desc)
       local valid, reason = keymap_rules.validate_key(key)
       if not valid then
@@ -57,9 +57,9 @@ return {
       end
     end
 
-    -- 创建验证命令
+    -- Create validation command
     vim.api.nvim_create_user_command('ValidateKeymaps', function()
-      -- 获取所有快捷键并验证
+      -- Get all keymaps and validate
       local keymaps = vim.api.nvim_get_keymap 'n'
       local invalid_keys = {}
 

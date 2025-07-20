@@ -1,14 +1,14 @@
 return {
   {
     'mason-org/mason.nvim',
-    event = 'VimEnter', -- Neovim 启动后加载
+    event = 'VimEnter', -- Load after Neovim starts
     cmd = { 'Mason', 'MasonInstall', 'MasonUninstall', 'MasonUpdate' },
     opts = {},
     build = ':MasonUpdate',
   },
   {
     'mason-org/mason-lspconfig.nvim',
-    event = { 'BufReadPre', 'BufNewFile' }, -- 打开文件时加载
+    event = { 'BufReadPre', 'BufNewFile' }, -- Load when opening files
     opts = {},
     dependencies = {
       'mason-org/mason.nvim',
@@ -24,10 +24,10 @@ return {
     },
     opts = {
       ensure_installed = {
-        -- Python 调试
+        -- Python debugging
         'debugpy',
 
-        -- 未来语言支持
+        -- Future language support
         'codelldb', -- Rust/C++
         'delve', -- Go
         'js-debug-adapter', -- JavaScript/TypeScript

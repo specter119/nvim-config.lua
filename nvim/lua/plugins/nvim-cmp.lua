@@ -19,10 +19,10 @@ return {
     local cmp = require 'cmp'
     local luasnip = require 'luasnip'
 
-    -- 加载代码片段
+    -- Load code snippets
     require('luasnip.loaders.from_vscode').lazy_load()
 
-    -- 辅助函数
+    -- Helper function
     local has_words_before = function()
       unpack = unpack or table.unpack
       local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -46,7 +46,7 @@ return {
           select = true,
         },
 
-        -- Tab 和 S-Tab 智能补全
+        -- Tab and S-Tab smart completion
         ['<Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
@@ -81,7 +81,7 @@ return {
       formatting = {
         fields = { 'kind', 'abbr', 'menu' },
         format = function(entry, vim_item)
-          -- 图标
+          -- Icons
           local kind_icons = {
             Text = '',
             Method = '󰆧',
@@ -132,7 +132,7 @@ return {
       },
     }
 
-    -- 命令行补全
+    -- Command line completion
     cmp.setup.cmdline(':', {
       mapping = cmp.mapping.preset.cmdline(),
       sources = cmp.config.sources({
@@ -142,7 +142,7 @@ return {
       }),
     })
 
-    -- 搜索补全
+    -- Search completion
     cmp.setup.cmdline({ '/', '?' }, {
       mapping = cmp.mapping.preset.cmdline(),
       sources = {

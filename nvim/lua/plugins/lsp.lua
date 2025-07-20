@@ -7,9 +7,9 @@ return {
     'hrsh7th/cmp-nvim-lsp',
   },
 
-  -- use lazy.nvim keys 字段定义快捷键
+  -- use lazy.nvim keys field to define keymaps
   keys = {
-    -- 代码操作 (使用 <leader>c* 命名空间)
+    -- Code actions (using <leader>c* namespace)
     { '<leader>ca', vim.lsp.buf.code_action, desc = 'Code Action' },
     { '<leader>cr', vim.lsp.buf.rename, desc = 'Rename' },
     {
@@ -23,7 +23,7 @@ return {
     { '<leader>ch', vim.lsp.buf.hover, desc = 'Hover' },
     { '<leader>cs', vim.lsp.buf.signature_help, desc = 'Signature Help' },
 
-    -- 工作区管理 (使用 <leader>cw* 子命名空间)
+    -- Workspace management (using <leader>cw* sub-namespace)
     { '<leader>cwa', vim.lsp.buf.add_workspace_folder, desc = 'Add Workspace Folder' },
     { '<leader>cwr', vim.lsp.buf.remove_workspace_folder, desc = 'Remove Workspace Folder' },
     {
@@ -34,13 +34,13 @@ return {
       desc = 'List Workspace Folders',
     },
 
-    -- diagnostic导航 (使用 <leader>d* 命名空间)
+    -- Diagnostic navigation (using <leader>d* namespace)
     { '<leader>de', vim.diagnostic.open_float, desc = 'Diagnostics Float' },
     { '<leader>dl', vim.diagnostic.setloclist, desc = 'Diagnostics List' },
     { '[d', vim.diagnostic.goto_prev, desc = 'Previous Diagnostic' },
     { ']d', vim.diagnostic.goto_next, desc = 'Next Diagnostic' },
 
-    -- 标准 LSP 导航快捷键
+    -- Standard LSP navigation keymaps
     { 'gd', vim.lsp.buf.definition, desc = 'Go to Definition' },
     { 'K', vim.lsp.buf.hover, desc = 'Hover' },
     { 'gi', vim.lsp.buf.implementation, desc = 'Go to Implementation' },
@@ -53,16 +53,16 @@ return {
     local mason_lspconfig = require 'mason-lspconfig'
     local cmp_nvim_lsp = require 'cmp_nvim_lsp'
 
-    -- simplified on_attach 函数，快捷键由 lazy.nvim 管理
+    -- simplified on_attach function, keymaps managed by lazy.nvim
     local on_attach = function(client, bufnr)
-      -- 仅保留必要的缓冲区设置
-      -- 快捷键已通过 lazy.nvim keys 字段定义
+      -- Only keep necessary buffer settings
+      -- Keymaps already defined through lazy.nvim keys field
     end
 
-    -- LSP 增强能力
+    -- LSP enhanced capabilities
     local capabilities = cmp_nvim_lsp.default_capabilities()
 
-    -- configuration诊断显示
+    -- Configure diagnostic display
     vim.diagnostic.config {
       virtual_text = {
         prefix = '●',
@@ -78,14 +78,14 @@ return {
       },
     }
 
-    -- diagnostic符号
+    -- Diagnostic symbols
     local signs = { Error = '󰅚 ', Warn = '󰀪 ', Hint = '󰌶 ', Info = ' ' }
     for type, icon in pairs(signs) do
       local hl = 'DiagnosticSign' .. type
       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
     end
 
-    -- LSP 悬浮窗口样式
+    -- LSP floating window style
     vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
       border = 'rounded',
     })
@@ -93,41 +93,42 @@ return {
       border = 'rounded',
     })
 
-    -- Mason-lspconfig 自动配置 - 数据科学和多语言开发
+    -- Mason-lspconfig automatic configuration - data science and multi-language development
     mason_lspconfig.setup {
       ensure_installed = {
-        -- core语言
-        'lua_ls', -- Lua (Neovim 配置)
-        'pyright', -- Python (主要语言)
+        -- core languages
+        'lua_ls', -- Lua (Neovim configuration)
+        'pyright', -- Python (primary language)
+        'fortls', -- Fortran (ABAQUS user subroutines)
 
-        -- future learning语言
+        -- future learning languages
         'rust_analyzer', -- Rust
         'ts_ls', -- TypeScript
         'gopls', -- Go
 
-        -- data science相关
-        'marksman', -- Markdown (文档和笔记)
-        'jsonls', -- JSON (配置文件)
-        'yamlls', -- YAML (配置文件)
-        'taplo', -- TOML (配置文件)
-        'tinymist', -- Typst (文档生成) - 推荐的 Typst LSP
+        -- data science related
+        'marksman', -- Markdown (documentation and notes)
+        'jsonls', -- JSON (config files)
+        'yamlls', -- YAML (config files)
+        'taplo', -- TOML (config files)
+        'tinymist', -- Typst (document generation) - recommended Typst LSP
 
-        -- optional Web 开发支持
+        -- optional Web development support
         'html', -- HTML
         'cssls', -- CSS
       },
       automatic_installation = true,
     }
 
-    -- default服务器配置
+    -- default server configuration
     local default_config = {
       on_attach = on_attach,
       capabilities = capabilities,
     }
 
-    -- special服务器配置
+    -- special server configurations
     local server_configs = {
-      -- Lua 配置 (Neovim 开发)
+      -- Lua configuration (Neovim development)
       lua_ls = {
         settings = {
           Lua = {
@@ -148,7 +149,7 @@ return {
         },
       },
 
-      -- Python 配置 (数据科学主力)
+      -- Python configuration (data science primary)
       pyright = {
         settings = {
           python = {
@@ -162,7 +163,27 @@ return {
         },
       },
 
-      -- Rust 配置
+      -- Fortran configuration (ABAQUS user subroutines development)
+      fortls = {
+        settings = {
+          fortls = {
+            nthreads = 1,
+            use_signature_help = true,
+            use_hover_for_signature = true,
+            hover_signature = true,
+            hover_language = 'fortran',
+            -- include_dirs = {
+            --   '/usr/include',
+            --   -- ABAQUS include directories can be adjusted based on installation location
+            -- },
+            pp_suffixes = { '.F', '.F90', '.f90', '.f95', '.f03', '.f08' },
+            lowercase_intrinsics = false,
+            debug_log = false,
+          },
+        },
+      },
+
+      -- Rust configuration
       rust_analyzer = {
         settings = {
           ['rust-analyzer'] = {
@@ -179,7 +200,7 @@ return {
         },
       },
 
-      -- TypeScript 配置
+      -- TypeScript configuration
       ts_ls = {
         settings = {
           typescript = {
@@ -196,7 +217,7 @@ return {
         },
       },
 
-      -- Go 配置
+      -- Go configuration
       gopls = {
         settings = {
           gopls = {
@@ -209,7 +230,7 @@ return {
         },
       },
 
-      -- Tinymist 配置 (Typst LSP)
+      -- Tinymist configuration (Typst LSP)
       tinymist = {
         settings = {
           exportPdf = 'onSave',
@@ -218,7 +239,7 @@ return {
       },
     }
 
-    -- manual配置需要特殊设置的服务器
+    -- Manual configuration for servers requiring special settings
     for server_name, server_config in pairs(server_configs) do
       local config = vim.tbl_deep_extend('force', default_config, server_config)
       lspconfig[server_name].setup(config)

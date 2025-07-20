@@ -18,7 +18,7 @@ return {
     },
 
     keys = {
-      -- use <leader>T* Terminal 命名空间 (遵循keymap规则)
+      -- Use <leader>T* Terminal namespace (follows keymap rules)
       { '<leader>To', '<cmd>OverseerToggle<CR>', desc = 'Overseer Toggle' },
       { '<leader>Tr', '<cmd>OverseerRun<CR>', desc = 'Run Task' },
       { '<leader>Ta', '<cmd>OverseerTaskAction<CR>', desc = 'Task Action' },
@@ -27,25 +27,25 @@ return {
       { '<leader>Tb', '<cmd>OverseerBuild<CR>', desc = 'Build Task' },
       { '<leader>Tq', '<cmd>OverseerQuickAction<CR>', desc = 'Quick Action' },
 
-      -- Python 任务 (使用子命名空间)
+      -- Python tasks (using sub-namespace)
       { '<leader>Tpr', '<cmd>OverseerRunCmd python %<CR>', desc = 'Run Python File' },
       { '<leader>Tpt', '<cmd>OverseerRunCmd python -m pytest %<CR>', desc = 'Run Pytest File' },
       { '<leader>Tpa', '<cmd>OverseerRunCmd python -m pytest<CR>', desc = 'Run All Tests' },
       { '<leader>Tpv', '<cmd>OverseerRunCmd python -m pytest -v<CR>', desc = 'Run Tests Verbose' },
       { '<leader>Tpc', '<cmd>OverseerRunCmd python -m pytest --cov=.<CR>', desc = 'Run with Coverage' },
 
-      -- 代码质量 (使用子命名空间)
+      -- Code quality (using sub-namespace)
       { '<leader>Tll', '<cmd>OverseerRunCmd python -m ruff check .<CR>', desc = 'Ruff Check' },
       { '<leader>Tlf', '<cmd>OverseerRunCmd python -m ruff format .<CR>', desc = 'Ruff Format' },
       { '<leader>Tlm', '<cmd>OverseerRunCmd python -m mypy .<CR>', desc = 'MyPy Check' },
 
-      -- 项目工具
+      -- Project tools
       { '<leader>Tg', '<cmd>OverseerRunCmd git status<CR>', desc = 'Git Status' },
       { '<leader>Tm', '<cmd>OverseerRunCmd marimo edit<CR>', desc = 'Marimo Edit' },
       { '<leader>Tmr', '<cmd>OverseerRunCmd marimo run<CR>', desc = 'Marimo Run' },
       { '<leader>Tmn', '<cmd>OverseerRunCmd marimo edit --new<CR>', desc = 'New Marimo Notebook' },
 
-      -- 智能运行
+      -- Smart run
       { '<leader>TS', '<cmd>SmartRun<CR>', desc = 'Smart Run' },
     },
 
@@ -117,10 +117,10 @@ return {
           border = 'rounded',
           win_opts = {},
         },
-        -- 任务模板
+        -- Task templates
         templates = {
           builtin = {
-            -- Python 任务
+            -- Python tasks
             python = {
               name = 'python',
               builder = function()
@@ -139,7 +139,7 @@ return {
                 filetype = { 'python' },
               },
             },
-            -- Pytest 任务
+            -- Pytest tasks
             pytest = {
               name = 'pytest',
               builder = function()
@@ -158,7 +158,7 @@ return {
                 filetype = { 'python' },
               },
             },
-            -- 代码质量检查
+            -- Code quality check
             ruff_check = {
               name = 'ruff check',
               builder = function()
@@ -173,7 +173,7 @@ return {
                 filetype = { 'python' },
               },
             },
-            -- 格式化
+            -- Formatting
             ruff_format = {
               name = 'ruff format',
               builder = function()
@@ -188,7 +188,7 @@ return {
                 filetype = { 'python' },
               },
             },
-            -- Marimo 笔记本
+            -- Marimo notebook
             marimo_edit = {
               name = 'marimo edit',
               builder = function()
@@ -228,7 +228,7 @@ return {
             },
           },
         },
-        -- 组件配置
+        -- Component configuration
         component_aliases = {
           default = {
             { 'display_duration', detail_level = 2 },
@@ -238,14 +238,14 @@ return {
             'on_complete_dispose',
           },
         },
-        -- 策略
+        -- Strategy
         strategy = {
           'toggleterm',
           direction = 'horizontal',
           autos_croll = true,
           quit_on_exit = 'success',
         },
-        -- 日志
+        -- Logging
         log = {
           {
             type = 'echo',
@@ -259,7 +259,7 @@ return {
         },
       }
 
-      -- 创建用户命令
+      -- Create user commands
       vim.api.nvim_create_user_command('RunPython', function(opts)
         local args = opts.args
         if args == '' then
@@ -287,28 +287,28 @@ return {
         desc = 'Run tests with Overseer',
       })
 
-      -- 智能运行
+      -- Smart run
       vim.api.nvim_create_user_command('SmartRun', function()
         local file = vim.fn.expand '%:p'
 
         if string.match(file, 'test_.*%.py$') or string.match(file, '.*_test%.py$') then
-          -- 运行测试
+          -- Run tests
           require('overseer').run_template('pytest', { args = { file, '-v' } })
         elseif string.match(file, '%.py$') then
-          -- 运行Python文件
+          -- Run Python file
           require('overseer').run_template('python', { args = { file } })
         else
-          -- default运行项目测试
+          -- Default run project tests
           require('overseer').run_template('pytest', { args = { '.', '-v' } })
         end
       end, {
         desc = 'Smart run based on file type',
       })
 
-      -- 快捷键
+      -- Keymaps
       vim.keymap.set('n', '<leader>TS', '<cmd>SmartRun<CR>', { desc = 'Smart Run' })
 
-      -- Marimo 快捷命令
+      -- Marimo shortcut commands
       vim.api.nvim_create_user_command('MarimoEdit', function(opts)
         local args = opts.args
         if args == '' then
@@ -344,18 +344,18 @@ return {
         desc = 'Create new Marimo notebook',
       })
 
-      -- 状态栏集成
+      -- Status bar integration
       vim.api.nvim_create_autocmd('User', {
         pattern = 'OverseerTaskStart',
         callback = function()
-          -- 可以在状态栏显示任务状态
+          -- Can display task status in status bar
         end,
       })
 
       vim.api.nvim_create_autocmd('User', {
         pattern = 'OverseerTaskComplete',
         callback = function()
-          -- 任务完成时的处理
+          -- Handle task completion
         end,
       })
     end,
