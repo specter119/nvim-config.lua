@@ -59,8 +59,10 @@ vim.opt.fileencoding = 'utf-8'
 vim.opt.encoding = 'utf-8'
 
 -- 性能设置
-vim.opt.lazyredraw = true
+vim.opt.lazyredraw = false -- 禁用 lazyredraw 以获得更好的用户体验
 vim.opt.synmaxcol = 300
+vim.opt.updatetime = 250
+vim.opt.redrawtime = 1500
 
 -- 窗口设置
 vim.opt.winwidth = 30

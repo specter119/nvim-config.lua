@@ -5,49 +5,64 @@ return {
     'mason-org/mason-lspconfig.nvim',
     'hrsh7th/cmp-nvim-lsp',
   },
-  config = function()
-    local lspconfig = require('lspconfig')
-    local mason_lspconfig = require('mason-lspconfig')
-    local cmp_nvim_lsp = require('cmp_nvim_lsp')
 
-    -- LSP 键位映射
-    local on_attach = function(client, bufnr)
-      local opts = { buffer = bufnr, silent = true }
-      
-      -- 跳转和查看
-      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-      vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-      vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-      vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-      vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-      
-      -- 工作区管理
-      vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-      vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-      vim.keymap.set('n', '<space>wl', function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-      end, opts)
-      
-      -- 代码操作
-      vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-      vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-      vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-      vim.keymap.set('n', '<space>f', function()
+  -- 使用 lazy.nvim keys 字段定义快捷键
+  keys = {
+    -- 代码操作 (使用 <leader>c* 命名空间)
+    { '<leader>ca', vim.lsp.buf.code_action, desc = 'Code Action' },
+    { '<leader>cr', vim.lsp.buf.rename, desc = 'Rename' },
+    {
+      '<leader>cf',
+      function()
         vim.lsp.buf.format { async = true }
-      end, opts)
-      
-      -- 诊断导航
-      vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-      vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-      vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-      vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+      end,
+      desc = 'Format',
+    },
+    { '<leader>ct', vim.lsp.buf.type_definition, desc = 'Type Definition' },
+    { '<leader>ch', vim.lsp.buf.hover, desc = 'Hover' },
+    { '<leader>cs', vim.lsp.buf.signature_help, desc = 'Signature Help' },
+
+    -- 工作区管理 (使用 <leader>cw* 子命名空间)
+    { '<leader>cwa', vim.lsp.buf.add_workspace_folder, desc = 'Add Workspace Folder' },
+    { '<leader>cwr', vim.lsp.buf.remove_workspace_folder, desc = 'Remove Workspace Folder' },
+    {
+      '<leader>cwl',
+      function()
+        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+      end,
+      desc = 'List Workspace Folders',
+    },
+
+    -- 诊断导航 (使用 <leader>d* 命名空间)
+    { '<leader>de', vim.diagnostic.open_float, desc = 'Diagnostics Float' },
+    { '<leader>dl', vim.diagnostic.setloclist, desc = 'Diagnostics List' },
+    { '[d', vim.diagnostic.goto_prev, desc = 'Previous Diagnostic' },
+    { ']d', vim.diagnostic.goto_next, desc = 'Next Diagnostic' },
+
+    -- 标准 LSP 导航快捷键
+    { 'gd', vim.lsp.buf.definition, desc = 'Go to Definition' },
+    { 'K', vim.lsp.buf.hover, desc = 'Hover' },
+    { 'gi', vim.lsp.buf.implementation, desc = 'Go to Implementation' },
+    { 'gr', vim.lsp.buf.references, desc = 'References' },
+    { '<C-k>', vim.lsp.buf.signature_help, desc = 'Signature Help' },
+  },
+
+  config = function()
+    local lspconfig = require 'lspconfig'
+    local mason_lspconfig = require 'mason-lspconfig'
+    local cmp_nvim_lsp = require 'cmp_nvim_lsp'
+
+    -- 简化的 on_attach 函数，快捷键由 lazy.nvim 管理
+    local on_attach = function(client, bufnr)
+      -- 仅保留必要的缓冲区设置
+      -- 快捷键已通过 lazy.nvim keys 字段定义
     end
 
     -- LSP 增强能力
     local capabilities = cmp_nvim_lsp.default_capabilities()
 
     -- 配置诊断显示
-    vim.diagnostic.config({
+    vim.diagnostic.config {
       virtual_text = {
         prefix = '●',
         severity = vim.diagnostic.severity.ERROR,
@@ -60,7 +75,7 @@ return {
         source = 'always',
         border = 'rounded',
       },
-    })
+    }
 
     -- 诊断符号
     local signs = { Error = '󰅚 ', Warn = '󰀪 ', Hint = '󰌶 ', Info = ' ' }
@@ -78,30 +93,30 @@ return {
     })
 
     -- Mason-lspconfig 自动配置 - 数据科学和多语言开发
-    mason_lspconfig.setup({
+    mason_lspconfig.setup {
       ensure_installed = {
         -- 核心语言
-        'lua_ls',           -- Lua (Neovim 配置)
-        'pyright',          -- Python (主要语言)
-        
+        'lua_ls', -- Lua (Neovim 配置)
+        'pyright', -- Python (主要语言)
+
         -- 未来学习的语言
-        'rust_analyzer',    -- Rust
-        'ts_ls',           -- TypeScript
-        'gopls',           -- Go
-        
+        'rust_analyzer', -- Rust
+        'ts_ls', -- TypeScript
+        'gopls', -- Go
+
         -- 数据科学相关
-        'marksman',        -- Markdown (文档和笔记)
-        'jsonls',          -- JSON (配置文件)
-        'yamlls',          -- YAML (配置文件)
-        'taplo',           -- TOML (配置文件)
-        'tinymist',        -- Typst (文档生成) - 推荐的 Typst LSP
-        
+        'marksman', -- Markdown (文档和笔记)
+        'jsonls', -- JSON (配置文件)
+        'yamlls', -- YAML (配置文件)
+        'taplo', -- TOML (配置文件)
+        'tinymist', -- Typst (文档生成) - 推荐的 Typst LSP
+
         -- 可选的 Web 开发支持
-        'html',            -- HTML
-        'cssls',           -- CSS
+        'html', -- HTML
+        'cssls', -- CSS
       },
       automatic_installation = true,
-    })
+    }
 
     -- 默认服务器配置
     local default_config = {
@@ -131,7 +146,7 @@ return {
           },
         },
       },
-      
+
       -- Python 配置 (数据科学主力)
       pyright = {
         settings = {
@@ -145,7 +160,7 @@ return {
           },
         },
       },
-      
+
       -- Rust 配置
       rust_analyzer = {
         settings = {
@@ -162,7 +177,7 @@ return {
           },
         },
       },
-      
+
       -- TypeScript 配置
       ts_ls = {
         settings = {
@@ -179,7 +194,7 @@ return {
           },
         },
       },
-      
+
       -- Go 配置
       gopls = {
         settings = {
@@ -192,7 +207,7 @@ return {
           },
         },
       },
-      
+
       -- Tinymist 配置 (Typst LSP)
       tinymist = {
         settings = {

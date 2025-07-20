@@ -1,13 +1,14 @@
 return {
   'nvim-treesitter/nvim-treesitter',
   branch = 'master',
-  lazy = false,
+  event = { 'BufReadPre', 'BufNewFile' },
+  priority = 1000, -- High priority loading
   build = ':TSUpdate',
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
   },
   config = function()
-    require('nvim-treesitter.configs').setup({
+    require('nvim-treesitter.configs').setup {
       -- 根据你的开发需求自动安装语言解析器
       ensure_installed = {
         -- 核心和配置语言
@@ -15,16 +16,16 @@ return {
         'vim',
         'vimdoc',
         'query',
-        
+
         -- 数据科学主力语言
         'python',
-        
+
         -- 未来学习的语言
         'rust',
         'typescript',
         'javascript',
         'go',
-        
+
         -- 配置文件和数据格式
         'json',
         'yaml',
@@ -32,26 +33,26 @@ return {
         'markdown',
         'markdown_inline',
         'typst',
-        
+
         -- Web 开发 (可选)
         'html',
         'css',
-        
+
         -- 其他常用
         'bash',
         'regex',
         'comment',
       },
-      
+
       -- 自动安装缺失的解析器
       auto_install = true,
-      
+
       -- 语法高亮
       highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,
       },
-      
+
       -- 增量选择
       incremental_selection = {
         enable = true,
@@ -62,12 +63,12 @@ return {
           node_decremental = '<BS>',
         },
       },
-      
+
       -- 缩进
       indent = {
         enable = true,
       },
-      
+
       -- 文本对象
       textobjects = {
         select = {
@@ -103,8 +104,8 @@ return {
           },
         },
       },
-    })
-    
+    }
+
     -- 设置折叠方式为 treesitter
     vim.opt.foldmethod = 'expr'
     vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'

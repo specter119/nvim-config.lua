@@ -18,9 +18,40 @@ vim.opt.rtp:prepend(lazypath)
 -- Setup lazy.nvim
 require('lazy').setup {
   spec = {
-    -- import your plugins
     { import = 'plugins' },
   },
-  -- automatically check for plugin updates
-  checker = { enabled = true },
+  defaults = {
+    lazy = true, -- 启用懒加载以提升启动速度
+    version = false, -- 使用 main/master 分支而非 release
+  },
+  install = { colorscheme = { 'rose-pine' } },
+  checker = {
+    enabled = true,
+    notify = false, -- 减少更新通知干扰
+  },
+  change_detection = {
+    enabled = true,
+    notify = false, -- 减少配置变更通知
+  },
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        'gzip',
+        'matchit',
+        'matchparen',
+        'netrwPlugin',
+        'tarPlugin',
+        'tohtml',
+        'tutor',
+        'zipPlugin',
+        'getscript',
+        'getscriptPlugin',
+        'vimball',
+        'vimballPlugin',
+        'logipat',
+        'rrhelper',
+        'spellfile_plugin',
+      },
+    },
+  },
 }

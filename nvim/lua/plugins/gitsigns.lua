@@ -1,7 +1,143 @@
 return {
   'lewis6991/gitsigns.nvim',
+
+  -- 使用 <leader>g* = Git 命名空间 和 <leader>t* = Toggle 命名空间
+  keys = {
+    -- Git hunk 操作
+    {
+      '<leader>gs',
+      function()
+        require('gitsigns').stage_hunk()
+      end,
+      desc = 'Stage Hunk',
+    },
+    {
+      '<leader>gr',
+      function()
+        require('gitsigns').reset_hunk()
+      end,
+      desc = 'Reset Hunk',
+    },
+    {
+      '<leader>gS',
+      function()
+        require('gitsigns').stage_buffer()
+      end,
+      desc = 'Stage Buffer',
+    },
+    {
+      '<leader>gu',
+      function()
+        require('gitsigns').undo_stage_hunk()
+      end,
+      desc = 'Undo Stage Hunk',
+    },
+    {
+      '<leader>gR',
+      function()
+        require('gitsigns').reset_buffer()
+      end,
+      desc = 'Reset Buffer',
+    },
+    {
+      '<leader>gp',
+      function()
+        require('gitsigns').preview_hunk()
+      end,
+      desc = 'Preview Hunk',
+    },
+    {
+      '<leader>gb',
+      function()
+        require('gitsigns').blame_line { full = true }
+      end,
+      desc = 'Blame Line',
+    },
+    {
+      '<leader>gd',
+      function()
+        require('gitsigns').diffthis()
+      end,
+      desc = 'Diff This',
+    },
+    {
+      '<leader>gD',
+      function()
+        require('gitsigns').diffthis '~'
+      end,
+      desc = 'Diff This ~',
+    },
+
+    -- Git hunk 操作 (visual mode)
+    {
+      '<leader>gs',
+      function()
+        require('gitsigns').stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
+      end,
+      desc = 'Stage Hunk',
+      mode = 'v',
+    },
+    {
+      '<leader>gr',
+      function()
+        require('gitsigns').reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
+      end,
+      desc = 'Reset Hunk',
+      mode = 'v',
+    },
+
+    -- Toggle 功能
+    {
+      '<leader>tb',
+      function()
+        require('gitsigns').toggle_current_line_blame()
+      end,
+      desc = 'Toggle Line Blame',
+    },
+    {
+      '<leader>td',
+      function()
+        require('gitsigns').toggle_deleted()
+      end,
+      desc = 'Toggle Deleted',
+    },
+
+    -- 导航
+    {
+      ']c',
+      function()
+        if vim.wo.diff then
+          return ']c'
+        end
+        vim.schedule(function()
+          require('gitsigns').next_hunk()
+        end)
+        return '<Ignore>'
+      end,
+      expr = true,
+      desc = 'Next Hunk',
+    },
+    {
+      '[c',
+      function()
+        if vim.wo.diff then
+          return '[c'
+        end
+        vim.schedule(function()
+          require('gitsigns').prev_hunk()
+        end)
+        return '<Ignore>'
+      end,
+      expr = true,
+      desc = 'Previous Hunk',
+    },
+
+    -- 文本对象
+    { 'ih', ':<C-U>Gitsigns select_hunk<CR>', desc = 'Select Hunk', mode = { 'o', 'x' } },
+  },
+
   config = function()
-    require('gitsigns').setup({
+    require('gitsigns').setup {
       signs = {
         add = { text = '+' },
         change = { text = '~' },
@@ -38,47 +174,7 @@ return {
         row = 0,
         col = 1,
       },
-      
-      on_attach = function(bufnr)
-        local gs = package.loaded.gitsigns
-        
-        local function map(mode, l, r, opts)
-          opts = opts or {}
-          opts.buffer = bufnr
-          vim.keymap.set(mode, l, r, opts)
-        end
-        
-        -- 导航
-        map('n', ']c', function()
-          if vim.wo.diff then return ']c' end
-          vim.schedule(function() gs.next_hunk() end)
-          return '<Ignore>'
-        end, { expr = true })
-        
-        map('n', '[c', function()
-          if vim.wo.diff then return '[c' end
-          vim.schedule(function() gs.prev_hunk() end)
-          return '<Ignore>'
-        end, { expr = true })
-        
-        -- 操作
-        map('n', '<leader>hs', gs.stage_hunk, { desc = 'Stage hunk' })
-        map('n', '<leader>hr', gs.reset_hunk, { desc = 'Reset hunk' })
-        map('v', '<leader>hs', function() gs.stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end, { desc = 'Stage hunk' })
-        map('v', '<leader>hr', function() gs.reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end, { desc = 'Reset hunk' })
-        map('n', '<leader>hS', gs.stage_buffer, { desc = 'Stage buffer' })
-        map('n', '<leader>hu', gs.undo_stage_hunk, { desc = 'Undo stage hunk' })
-        map('n', '<leader>hR', gs.reset_buffer, { desc = 'Reset buffer' })
-        map('n', '<leader>hp', gs.preview_hunk, { desc = 'Preview hunk' })
-        map('n', '<leader>hb', function() gs.blame_line { full = true } end, { desc = 'Blame line' })
-        map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = 'Toggle line blame' })
-        map('n', '<leader>hd', gs.diffthis, { desc = 'Diff this' })
-        map('n', '<leader>hD', function() gs.diffthis('~') end, { desc = 'Diff this ~' })
-        map('n', '<leader>td', gs.toggle_deleted, { desc = 'Toggle deleted' })
-        
-        -- 文本对象
-        map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { desc = 'Select hunk' })
-      end,
-    })
+      -- 移除 on_attach 中的快捷键设置，由 lazy.nvim 管理
+    }
   end,
 }

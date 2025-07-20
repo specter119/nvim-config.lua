@@ -3,8 +3,13 @@ return {
   dependencies = {
     'nvim-tree/nvim-web-devicons',
   },
+  -- 使用预留的单个快捷键，因为文件树是常用操作
+  keys = {
+    { '<leader>e', '<cmd>NvimTreeToggle<CR>', desc = 'Toggle File Tree' },
+    { '<leader>E', '<cmd>NvimTreeFindFile<CR>', desc = 'Find File in Tree' },
+  },
   config = function()
-    require('nvim-tree').setup({
+    require('nvim-tree').setup {
       sort_by = 'case_sensitive',
       view = {
         width = 30,
@@ -94,19 +99,14 @@ return {
           },
         },
       },
-    })
-    
-    -- 键位映射
-    vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', { desc = 'Toggle file tree' })
-    vim.keymap.set('n', '<leader>o', ':NvimTreeFocus<CR>', { desc = 'Focus file tree' })
-    vim.keymap.set('n', '<leader>E', ':NvimTreeFindFile<CR>', { desc = 'Find current file in tree' })
-    
+    }
+
     -- 自动关闭
     vim.api.nvim_create_autocmd('BufEnter', {
       nested = true,
       callback = function()
-        if #vim.api.nvim_list_wins() == 1 and vim.api.nvim_buf_get_name(0):match('NvimTree_') ~= nil then
-          vim.cmd('quit')
+        if #vim.api.nvim_list_wins() == 1 and vim.api.nvim_buf_get_name(0):match 'NvimTree_' ~= nil then
+          vim.cmd 'quit'
         end
       end,
     })
