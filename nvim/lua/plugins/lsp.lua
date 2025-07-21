@@ -44,7 +44,7 @@ return {
     { 'gd', vim.lsp.buf.definition, desc = 'Go to Definition' },
     { 'K', vim.lsp.buf.hover, desc = 'Hover' },
     { 'gi', vim.lsp.buf.implementation, desc = 'Go to Implementation' },
-    { 'gr', vim.lsp.buf.references, desc = 'References' },
+    { '<leader>cR', vim.lsp.buf.references, desc = 'References' },
     { '<C-k>', vim.lsp.buf.signature_help, desc = 'Signature Help' },
   },
 

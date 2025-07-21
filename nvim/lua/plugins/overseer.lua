@@ -41,7 +41,7 @@ return {
 
       -- Project tools
       { '<leader>Tg', '<cmd>OverseerRunCmd git status<CR>', desc = 'Git Status' },
-      { '<leader>Tm', '<cmd>OverseerRunCmd marimo edit<CR>', desc = 'Marimo Edit' },
+      { '<leader>Tme', '<cmd>OverseerRunCmd marimo edit<CR>', desc = 'Marimo Edit' },
       { '<leader>Tmr', '<cmd>OverseerRunCmd marimo run<CR>', desc = 'Marimo Run' },
       { '<leader>Tmn', '<cmd>OverseerRunCmd marimo edit --new<CR>', desc = 'New Marimo Notebook' },
 
