@@ -12,15 +12,16 @@ return {
     require('nvim-tree').setup {
       sort_by = 'case_sensitive',
       view = {
-        width = 30,
+        width = 0.15,
         relativenumber = true,
+        preserve_window_proportions = true,
       },
       renderer = {
         group_empty = true,
         highlight_git = true,
         full_name = false,
         highlight_opened_files = 'name',
-        root_folder_modifier = ':~',
+        root_folder_modifier = ':t',
         indent_markers = {
           enable = true,
           inline_arrows = true,
